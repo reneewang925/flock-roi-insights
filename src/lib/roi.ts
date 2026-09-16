@@ -1,36 +1,41 @@
 export const ASSUMPTIONS = {
-  greenLoanDiscount: 0.0035, // 0.35 pp interest discount
-  mortalityReduction: 0.3, // 30% of losses prevented
-  outputPerSqmYear: 950, // SEK
-  baseMonthly: 1500, // SEK
-  perSqmMonthly: 0.6, // SEK
+  subscriptionPer1000SqmMonthly: 5040, // SEK hardware leasing + SaaS per 1,000 sqm / month
+  greenLoanDiscount: 0.005, // 0.5% annual interest reduction
+  birdsPer1000Sqm: 140000, // chickens per 1,000 sqm per year
+  premiumPerBird: 0.5, // SEK premium per chicken
 };
 
-export type Inputs = { farmSize: number; loan: number; mortality: number };
+export type Inputs = { farmSize: number; loan: number };
 
-export function calcRoi({ farmSize, loan, mortality }: Inputs) {
-  const monthlySubscription =
-    ASSUMPTIONS.baseMonthly + farmSize * ASSUMPTIONS.perSqmMonthly;
+export function calcRoi({ farmSize, loan }: Inputs) {
+  const monthlySubscription = (farmSize / 1000) * ASSUMPTIONS.subscriptionPer1000SqmMonthly;
   const annualSubscription = monthlySubscription * 12;
 
-  const interestSavings = loan * ASSUMPTIONS.greenLoanDiscount;
+  const monthlyInterestSavings = (loan * ASSUMPTIONS.greenLoanDiscount) / 12;
+  const interestSavings = monthlyInterestSavings * 12;
 
-  const annualOutput = farmSize * ASSUMPTIONS.outputPerSqmYear;
-  const premiumProfit =
-    annualOutput * (mortality / 100) * ASSUMPTIONS.mortalityReduction;
+  const monthlyPremiumProfit =
+    ((farmSize / 1000) * (ASSUMPTIONS.birdsPer1000Sqm * ASSUMPTIONS.premiumPerBird)) / 12;
+  const premiumProfit = monthlyPremiumProfit * 12;
 
-  const grossBenefit = interestSavings + premiumProfit;
-  const netAnnualGain = grossBenefit - annualSubscription;
-  const roi = annualSubscription > 0 ? (netAnnualGain / annualSubscription) * 100 : 0;
-  const monthlyNet = netAnnualGain / 12;
-  const paybackMonths = monthlyNet > 0 ? annualSubscription / (grossBenefit / 12) : null;
+  const netMonthlyGain = monthlyInterestSavings + monthlyPremiumProfit - monthlySubscription;
+  const netAnnualGain = netMonthlyGain * 12;
+
+  const roi =
+    monthlySubscription > 0 ? (netMonthlyGain / monthlySubscription) * 100 : 0;
+
+  const monthlyGrossBenefit = monthlyInterestSavings + monthlyPremiumProfit;
+  const paybackMonths =
+    monthlyGrossBenefit > 0 ? monthlySubscription / monthlyGrossBenefit : null;
 
   return {
     monthlySubscription,
     annualSubscription,
+    monthlyInterestSavings,
     interestSavings,
+    monthlyPremiumProfit,
     premiumProfit,
-    grossBenefit,
+    netMonthlyGain,
     netAnnualGain,
     roi,
     paybackMonths,

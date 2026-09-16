@@ -35,12 +35,14 @@ export const dict = {
     total: "Net result",
     assumptions: "Calculation assumptions",
     assumptionList: [
-      "Green agri-loan discount: 0.35 percentage points on the outstanding loan once flock monitoring data is reported to the lender.",
-      "Mortality reduction index: monitoring prevents 30% of current mortality; each prevented loss is valued from an output of 950 SEK per sqm per year.",
-      "Platform pricing: 1 500 SEK per month base plus 0.60 SEK per sqm per month.",
+      "Platform pricing: 5,040 SEK per 1,000 sqm per month, covering hardware leasing and SaaS.",
+      "Green loan discount: 0.5% annual interest reduction on your current bank loan, i.e. loan × 0.005 per year.",
+      "Premium profit: 140,000 chickens per 1,000 sqm per year at a 0.50 SEK premium per chicken, i.e. (farm size ÷ 1,000) × 140,000 × 0.5 per year.",
+      "Net ROI = (monthly interest savings + monthly premium profit − monthly subscription) ÷ monthly subscription × 100.",
     ],
     infoTitle: "How this is calculated",
     negative: "At these inputs the platform does not yet pay for itself.",
+    netMonth: "Net monthly gain",
   },
   sv: {
     brand: "AgriROI",
@@ -76,12 +78,14 @@ export const dict = {
     total: "Nettoresultat",
     assumptions: "Antaganden i beräkningen",
     assumptionList: [
-      "Grön lantbruksrabatt: 0,35 procentenheter på befintligt lån när flockdata rapporteras till banken.",
-      "Index för minskad dödlighet: övervakning förhindrar 30 % av nuvarande dödlighet; varje undviken förlust värderas utifrån 950 kr per m² och år.",
-      "Plattformspris: 1 500 kr per månad i grundavgift plus 0,60 kr per m² och månad.",
+      "Plattformspris: 5 040 kr per 1 000 m² och månad, inklusive hårdvaruleasing och SaaS.",
+      "Grön lånerabatt: 0,5 % årlig räntesänkning på befintligt banklån, dvs. lån × 0,005 per år.",
+      "Premievinst: 140 000 kycklingar per 1 000 m² och år med 0,50 kr i premie per kyckling, dvs. (gårdsyta ÷ 1 000) × 140 000 × 0,5 per år.",
+      "Netto-ROI = (månatlig räntebesparing + månatlig premievinst − månadskostnad) ÷ månadskostnad × 100.",
     ],
     infoTitle: "Så räknar vi",
     negative: "Med dessa värden betalar plattformen ännu inte av sig.",
+    netMonth: "Nettovinst per månad",
   },
 } as const;
 
