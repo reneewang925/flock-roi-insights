@@ -131,19 +131,6 @@ function Index() {
               minLabel={`${t.min} 500 000`}
               maxLabel={`${t.max} 30 000 000`}
             />
-            <RangeSlider
-              icon={HeartPulse}
-              label={`${t.mortality} (%)`}
-              value={mortality}
-              min={1}
-              max={12}
-              step={0.1}
-              decimals={1}
-              onChange={setMortality}
-              display={`${formatNum(lang, mortality, 1)} %`}
-              minLabel={`${t.min} 1,0 %`}
-              maxLabel={`${t.max} 12,0 %`}
-            />
 
             <div className="rounded-2xl border border-border/70 bg-card/40 p-5">
               <button
