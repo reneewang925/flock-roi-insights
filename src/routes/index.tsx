@@ -5,7 +5,6 @@ import {
   Banknote,
   ChevronDown,
   CreditCard,
-  HeartPulse,
   Info,
   LandPlot,
   Leaf,
@@ -46,17 +45,16 @@ function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const [farmSize, setFarmSize] = useState(6000);
   const [loan, setLoan] = useState(8_000_000);
-  const [mortality, setMortality] = useState(5);
   const [open, setOpen] = useState(false);
   const [tip, setTip] = useState(false);
 
   const t = useT(lang);
-  const r = useMemo(() => calcRoi({ farmSize, loan, mortality }), [farmSize, loan, mortality]);
+  const r = useMemo(() => calcRoi({ farmSize, loan }), [farmSize, loan]);
 
   const rows = [
     { label: t.subscription, monthly: -r.monthlySubscription, annual: -r.annualSubscription },
-    { label: t.interest, monthly: r.interestSavings / 12, annual: r.interestSavings },
-    { label: t.premium, monthly: r.premiumProfit / 12, annual: r.premiumProfit },
+    { label: t.interest, monthly: r.monthlyInterestSavings, annual: r.interestSavings },
+    { label: t.premium, monthly: r.monthlyPremiumProfit, annual: r.premiumProfit },
   ];
 
   return (
