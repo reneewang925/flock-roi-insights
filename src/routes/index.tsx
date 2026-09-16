@@ -156,57 +156,72 @@ function Index() {
             </div>
           </section>
 
-          <section className="space-y-6">
-            <div className="rounded-3xl border border-border/70 bg-card/60 p-8 backdrop-blur">
-              <RoiGauge value={r.roi} label={t.roi} />
+          <section className="space-y-5">
+            <div className="overflow-hidden rounded-3xl border border-border/70 bg-result-surface shadow-[0_0_50px_-18px_var(--gain-glow)]">
+              <div className="border-b border-border/60 px-6 pb-4 pt-6 sm:px-8">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase text-muted-foreground">{t.projectedImpact}</p>
+                    <h2 className="mt-1 font-display text-xl font-bold text-foreground">{t.financialSummary}</h2>
+                  </div>
+                  <span className="shrink-0 rounded-full border border-gain/25 bg-gain/10 px-3 py-1 text-[10px] font-bold uppercase text-gain">
+                    {t.liveAnalysis}
+                  </span>
+                </div>
+              </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-border/60 bg-background/50 p-4">
-                  <p className="text-xs text-muted-foreground">{t.netGain}</p>
+              <div className="grid items-stretch md:grid-cols-[0.9fr_1.1fr]">
+                <div className="grid place-items-center border-b border-border/60 px-4 py-7 md:border-b-0 md:border-r">
+                  <RoiGauge value={r.roi} label={t.roi} />
+                </div>
+                <div className="flex flex-col justify-center px-6 py-8 sm:px-8">
+                  <p className="text-xs font-bold uppercase text-muted-foreground">{t.netGain}</p>
                   <p
-                    className={`mt-1 font-mono text-xl font-semibold tabular-nums ${
-                      r.netAnnualGain >= 0 ? "text-emerald-400" : "text-rose-400"
+                    className={`mt-3 break-words font-mono text-4xl font-bold tabular-nums leading-none sm:text-5xl ${
+                      r.netAnnualGain >= 0 ? "text-gain drop-shadow-[0_0_20px_var(--gain-glow)]" : "text-destructive"
                     }`}
                   >
                     {formatSEK(lang, r.netAnnualGain)}
                   </p>
-                </div>
-                <div className="rounded-2xl border border-border/60 bg-background/50 p-4">
-                  <p className="text-xs text-muted-foreground">{t.payback}</p>
-                  <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-foreground">
-                    {r.paybackMonths
-                      ? `${formatNum(lang, r.paybackMonths, 1)} ${t.months}`
-                      : "—"}
-                  </p>
+                  <div className="mt-7 border-t border-border/60 pt-4">
+                    <p className="text-[10px] font-bold uppercase text-muted-foreground">{t.payback}</p>
+                    <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-foreground">
+                      {r.paybackMonths ? `${formatNum(lang, r.paybackMonths, 1)} ${t.months}` : "—"}
+                    </p>
+                    <div className="mt-3 h-1 w-12 rounded-full bg-brass" />
+                  </div>
                 </div>
               </div>
               {r.netAnnualGain < 0 && (
-                <p className="mt-4 text-xs text-rose-300/80">{t.negative}</p>
+                <p className="border-t border-border/60 px-8 py-4 text-xs text-destructive">{t.negative}</p>
               )}
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
-              <MetricCard
-                icon={CreditCard}
-                tone="rose"
-                label={t.subscription}
-                value={formatSEK(lang, r.monthlySubscription)}
-                sub={`${formatSEK(lang, r.annualSubscription)} ${t.perYear}`}
-              />
-              <MetricCard
-                icon={Banknote}
-                tone="emerald"
-                label={t.interest}
-                value={formatSEK(lang, r.interestSavings)}
-                sub={`${formatSEK(lang, r.monthlyInterestSavings)} ${t.perMonth}`}
-              />
-              <MetricCard
-                icon={TrendingUp}
-                tone="emerald"
-                label={t.premium}
-                value={formatSEK(lang, r.premiumProfit)}
-                sub={`${formatSEK(lang, r.monthlyPremiumProfit)} ${t.perMonth}`}
-              />
+            <div>
+              <p className="mb-3 text-[10px] font-bold uppercase text-muted-foreground">{t.financialBreakdown}</p>
+              <div className="grid gap-px overflow-hidden rounded-2xl border border-border/70 bg-border sm:grid-cols-3">
+                <MetricCard
+                  icon={CreditCard}
+                  tone="cost"
+                  label={t.subscription}
+                  value={formatSEK(lang, r.monthlySubscription)}
+                  sub={`${formatSEK(lang, r.annualSubscription)} ${t.perYear}`}
+                />
+                <MetricCard
+                  icon={Banknote}
+                  tone="gain"
+                  label={t.interest}
+                  value={formatSEK(lang, r.interestSavings)}
+                  sub={`${formatSEK(lang, r.monthlyInterestSavings)} ${t.perMonth}`}
+                />
+                <MetricCard
+                  icon={TrendingUp}
+                  tone="gain"
+                  label={t.premium}
+                  value={formatSEK(lang, r.premiumProfit)}
+                  sub={`${formatSEK(lang, r.monthlyPremiumProfit)} ${t.perMonth}`}
+                />
+              </div>
             </div>
 
             <div className="rounded-3xl border border-border/70 bg-card/40 p-6">
@@ -278,21 +293,18 @@ function MetricCard({
   sub,
 }: {
   icon: typeof Banknote;
-  tone: "rose" | "emerald";
+   tone: "cost" | "gain";
   label: string;
   value: string;
   sub: string;
 }) {
-  const tones =
-    tone === "rose"
-      ? "border-rose-400/25 bg-rose-950/40 text-rose-400"
-      : "border-emerald-400/25 bg-emerald-950/40 text-emerald-400";
+   const tones = tone === "cost" ? "text-cost" : "text-gain";
   return (
-    <div className={`rounded-2xl border p-5 ${tones}`}>
+    <div className={`flex min-h-36 flex-col bg-result-surface p-4 transition-colors hover:bg-secondary ${tones}`}>
       <Icon className="size-4" aria-hidden />
-      <p className="mt-3 text-xs font-medium text-foreground/70">{label}</p>
-      <p className="mt-1 font-mono text-lg font-semibold tabular-nums">{value}</p>
-      <p className="mt-1 text-[11px] text-foreground/50">{sub}</p>
+      <p className="mt-3 min-h-8 text-[11px] font-semibold leading-tight text-muted-foreground">{label}</p>
+      <p className="mt-auto font-mono text-base font-bold tabular-nums">{value}</p>
+      <p className="mt-1 text-[10px] text-muted-foreground">{sub}</p>
     </div>
   );
 }

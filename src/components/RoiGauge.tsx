@@ -1,8 +1,8 @@
 type Props = { value: number; label: string };
 
 export function RoiGauge({ value, label }: Props) {
-  const size = 240;
-  const stroke = 16;
+  const size = 224;
+  const stroke = 14;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const sweep = 0.75; // 270deg arc
@@ -16,8 +16,8 @@ export function RoiGauge({ value, label }: Props) {
       <svg width={size} height={size} className="-rotate-[225deg]" role="img" aria-label={`${label}: ${value.toFixed(0)}%`}>
         <defs>
           <linearGradient id="roiArc" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={positive ? "oklch(0.78 0.16 165)" : "oklch(0.7 0.16 20)"} />
-            <stop offset="100%" stopColor={positive ? "oklch(0.72 0.13 195)" : "oklch(0.62 0.18 15)"} />
+            <stop offset="0%" stopColor={positive ? "var(--gain)" : "var(--destructive)"} />
+            <stop offset="100%" stopColor={positive ? "var(--brass)" : "var(--destructive)"} />
           </linearGradient>
         </defs>
         <circle
@@ -43,8 +43,8 @@ export function RoiGauge({ value, label }: Props) {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
-        <span className="mt-1 font-mono text-5xl font-semibold tabular-nums text-foreground">
+        <span className="text-xs font-bold uppercase text-muted-foreground">{label}</span>
+        <span className={`mt-1 font-mono text-6xl font-bold tabular-nums ${positive ? "text-gain drop-shadow-[0_0_18px_var(--gain-glow)]" : "text-destructive"}`}>
           {value > 0 ? "+" : ""}
           {value.toFixed(0)}%
         </span>
