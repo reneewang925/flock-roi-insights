@@ -5,7 +5,6 @@ import {
   Banknote,
   ChevronDown,
   CreditCard,
-  HeartPulse,
   Info,
   LandPlot,
   Leaf,
@@ -24,13 +23,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Calculate the annual ROI of Smart Flock Monitor: subscription cost, green-loan interest savings and mortality prevention, in SEK. Bilingual EN/SV.",
+          "Calculate the ROI of Smart Flock Monitor: subscription cost, green-loan interest savings and premium profit, in SEK. Bilingual EN/SV.",
       },
       { property: "og:title", content: "AgriROI — Green-Loan ROI Calculator" },
       {
         property: "og:description",
         content:
-          "Model subscription cost, green-loan interest savings and mortality prevention for your farm in SEK.",
+          "Model subscription cost, green-loan interest savings and premium profit for your farm in SEK.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -46,17 +45,16 @@ function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const [farmSize, setFarmSize] = useState(6000);
   const [loan, setLoan] = useState(8_000_000);
-  const [mortality, setMortality] = useState(5);
   const [open, setOpen] = useState(false);
   const [tip, setTip] = useState(false);
 
   const t = useT(lang);
-  const r = useMemo(() => calcRoi({ farmSize, loan, mortality }), [farmSize, loan, mortality]);
+  const r = useMemo(() => calcRoi({ farmSize, loan }), [farmSize, loan]);
 
   const rows = [
     { label: t.subscription, monthly: -r.monthlySubscription, annual: -r.annualSubscription },
-    { label: t.interest, monthly: r.interestSavings / 12, annual: r.interestSavings },
-    { label: t.premium, monthly: r.premiumProfit / 12, annual: r.premiumProfit },
+    { label: t.interest, monthly: r.monthlyInterestSavings, annual: r.interestSavings },
+    { label: t.premium, monthly: r.monthlyPremiumProfit, annual: r.premiumProfit },
   ];
 
   return (
@@ -133,19 +131,6 @@ function Index() {
               minLabel={`${t.min} 500 000`}
               maxLabel={`${t.max} 30 000 000`}
             />
-            <RangeSlider
-              icon={HeartPulse}
-              label={`${t.mortality} (%)`}
-              value={mortality}
-              min={1}
-              max={12}
-              step={0.1}
-              decimals={1}
-              onChange={setMortality}
-              display={`${formatNum(lang, mortality, 1)} %`}
-              minLabel={`${t.min} 1,0 %`}
-              maxLabel={`${t.max} 12,0 %`}
-            />
 
             <div className="rounded-2xl border border-border/70 bg-card/40 p-5">
               <button
@@ -211,14 +196,14 @@ function Index() {
                 tone="emerald"
                 label={t.interest}
                 value={formatSEK(lang, r.interestSavings)}
-                sub={`${formatSEK(lang, r.interestSavings / 12)} ${t.perMonth}`}
+                sub={`${formatSEK(lang, r.monthlyInterestSavings)} ${t.perMonth}`}
               />
               <MetricCard
                 icon={TrendingUp}
                 tone="emerald"
                 label={t.premium}
                 value={formatSEK(lang, r.premiumProfit)}
-                sub={`${formatSEK(lang, r.premiumProfit / 12)} ${t.perMonth}`}
+                sub={`${formatSEK(lang, r.monthlyPremiumProfit)} ${t.perMonth}`}
               />
             </div>
 
@@ -259,7 +244,7 @@ function Index() {
                     <tr className="border-t border-border">
                       <td className="py-3 font-sans font-medium">{t.total}</td>
                       <td className={`py-3 text-right font-semibold ${r.netAnnualGain >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
-                        {formatSEK(lang, r.netAnnualGain / 12)}
+                        {formatSEK(lang, r.netMonthlyGain)}
                       </td>
                       <td className={`py-3 text-right font-semibold ${r.netAnnualGain >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                         {formatSEK(lang, r.netAnnualGain)}
