@@ -17,6 +17,9 @@ export const dict = {
     max: "Max",
     fine: "Fine-tune",
     roi: "Annual ROI",
+    financialSummary: "Financial ROI summary",
+    projectedImpact: "Projected impact",
+    liveAnalysis: "Live analysis",
     netGain: "Net annual gain",
     payback: "Payback period",
     months: "months",
@@ -43,6 +46,7 @@ export const dict = {
     infoTitle: "How this is calculated",
     negative: "At these inputs the platform does not yet pay for itself.",
     netMonth: "Net monthly gain",
+    financialBreakdown: "Financial breakdown",
   },
   sv: {
     brand: "KlaraFarm",
@@ -59,6 +63,9 @@ export const dict = {
     max: "Max",
     fine: "Finjustera",
     roi: "Årlig ROI",
+    financialSummary: "Finansiell ROI-översikt",
+    projectedImpact: "Beräknad effekt",
+    liveAnalysis: "Liveanalys",
     netGain: "Nettovinst per år",
     payback: "Återbetalningstid",
     months: "månader",
@@ -85,6 +92,7 @@ export const dict = {
     infoTitle: "Så räknar vi",
     negative: "Med dessa värden betalar plattformen ännu inte av sig.",
     netMonth: "Nettovinst per månad",
+    financialBreakdown: "Finansiell uppdelning",
   },
 } as const;
 
