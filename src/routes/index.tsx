@@ -67,7 +67,7 @@ function Index() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-4">
           <div className="flex items-center gap-2">
             <span className="grid size-11 place-items-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_24px_oklch(0.696_0.17_162.48/0.16)]">
-              <KlaraFarmLogo className="h-7 w-9" />
+              <KlaraFarmLogo className="h-8 w-10 object-contain" />
             </span>
             <div className="leading-tight">
               <p className="font-semibold tracking-tight">{t.brand}</p>
