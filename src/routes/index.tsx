@@ -23,13 +23,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Calculate the annual ROI of Smart Flock Monitor: subscription cost, green-loan interest savings and mortality prevention, in SEK. Bilingual EN/SV.",
+          "Calculate the ROI of Smart Flock Monitor: subscription cost, green-loan interest savings and premium profit, in SEK. Bilingual EN/SV.",
       },
       { property: "og:title", content: "AgriROI — Green-Loan ROI Calculator" },
       {
         property: "og:description",
         content:
-          "Model subscription cost, green-loan interest savings and mortality prevention for your farm in SEK.",
+          "Model subscription cost, green-loan interest savings and premium profit for your farm in SEK.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
