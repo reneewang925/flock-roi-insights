@@ -209,14 +209,14 @@ function Index() {
                 tone="emerald"
                 label={t.interest}
                 value={formatSEK(lang, r.interestSavings)}
-                sub={`${formatSEK(lang, r.interestSavings / 12)} ${t.perMonth}`}
+                sub={`${formatSEK(lang, r.monthlyInterestSavings)} ${t.perMonth}`}
               />
               <MetricCard
                 icon={TrendingUp}
                 tone="emerald"
                 label={t.premium}
                 value={formatSEK(lang, r.premiumProfit)}
-                sub={`${formatSEK(lang, r.premiumProfit / 12)} ${t.perMonth}`}
+                sub={`${formatSEK(lang, r.monthlyPremiumProfit)} ${t.perMonth}`}
               />
             </div>
 
@@ -257,7 +257,7 @@ function Index() {
                     <tr className="border-t border-border">
                       <td className="py-3 font-sans font-medium">{t.total}</td>
                       <td className={`py-3 text-right font-semibold ${r.netAnnualGain >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
-                        {formatSEK(lang, r.netAnnualGain / 12)}
+                        {formatSEK(lang, r.netMonthlyGain)}
                       </td>
                       <td className={`py-3 text-right font-semibold ${r.netAnnualGain >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                         {formatSEK(lang, r.netAnnualGain)}
