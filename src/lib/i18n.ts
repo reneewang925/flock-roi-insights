@@ -2,12 +2,12 @@ export type Lang = "en" | "sv";
 
 export const dict = {
   en: {
-    brand: "AgriROI",
-    tagline: "Green-loan ROI calculator",
-    ecosystem: "Companion tool for Smart Flock Monitor",
+    brand: "KlaraFarm",
+    tagline: "Clear returns for smarter farming",
+    ecosystem: "Connected to Smart Flock Monitor",
     openEcosystem: "Open Smart Flock Monitor",
     heading: "Agricultural ROI Calculator",
-    sub: "Model the financial return of Smart Flock Monitor across subscription cost, green-loan interest savings and premium profit.",
+    sub: "Model KlaraFarm's financial return across subscription cost, green-loan interest savings and premium profit, powered by the Smart Flock Monitor ecosystem.",
     inputs: "Your farm",
     farmSize: "Farm Size",
     farmSizeUnit: "sqm",
@@ -45,12 +45,12 @@ export const dict = {
     netMonth: "Net monthly gain",
   },
   sv: {
-    brand: "AgriROI",
-    tagline: "ROI-kalkylator för gröna lån",
-    ecosystem: "Kompletterande verktyg till Smart Flock Monitor",
+    brand: "KlaraFarm",
+    tagline: "Tydlig avkastning för smartare lantbruk",
+    ecosystem: "Ansluten till Smart Flock Monitor",
     openEcosystem: "Öppna Smart Flock Monitor",
     heading: "Lönsamhetskalkylator för lantbruk",
-    sub: "Beräkna avkastningen för Smart Flock Monitor utifrån prenumerationskostnad, räntebesparing på gröna lån och ökad premievinst.",
+    sub: "Beräkna KlaraFarms avkastning utifrån prenumerationskostnad, räntebesparing på gröna lån och ökad premievinst, med stöd av Smart Flock Monitor-ekosystemet.",
     inputs: "Din gård",
     farmSize: "Gårdsyta",
     farmSizeUnit: "m²",
