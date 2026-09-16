@@ -8,9 +8,9 @@ import {
   Info,
   LandPlot,
   Leaf,
-  Sprout,
   TrendingUp,
 } from "lucide-react";
+import { KlaraFarmLogo } from "@/components/KlaraFarmLogo";
 import { RangeSlider } from "@/components/RangeSlider";
 import { RoiGauge } from "@/components/RoiGauge";
 import { calcRoi } from "@/lib/roi";
@@ -19,21 +19,23 @@ import { formatNum, formatSEK, useT, type Lang } from "@/lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AgriROI — Green-Loan ROI Calculator for Poultry Farms" },
+      { title: "KlaraFarm — Green-Loan ROI Calculator" },
       {
         name: "description",
         content:
-          "Calculate the ROI of Smart Flock Monitor: subscription cost, green-loan interest savings and premium profit, in SEK. Bilingual EN/SV.",
+          "Calculate KlaraFarm ROI from subscription costs, green-loan interest savings and premium profit in SEK, connected to Smart Flock Monitor.",
       },
-      { property: "og:title", content: "AgriROI — Green-Loan ROI Calculator" },
+      { property: "og:title", content: "KlaraFarm — Green-Loan ROI Calculator" },
       {
         property: "og:description",
         content:
-          "Model subscription cost, green-loan interest savings and premium profit for your farm in SEK.",
+          "Model KlaraFarm subscription costs, green-loan interest savings and premium profit for your farm in SEK.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: Index,
 });
@@ -64,8 +66,8 @@ function Index() {
       <header className="relative z-10 border-b border-border/70 bg-background/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-4">
           <div className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-xl bg-primary/15 text-primary">
-              <Sprout className="size-5" aria-hidden />
+            <span className="grid size-11 place-items-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_24px_oklch(0.696_0.17_162.48/0.16)]">
+              <KlaraFarmLogo className="h-7 w-9" />
             </span>
             <div className="leading-tight">
               <p className="font-semibold tracking-tight">{t.brand}</p>
